@@ -18,7 +18,14 @@ public class MyCalculator {
         int num2 = sc.nextInt();
 
         int sum = num1 + num2;
-
+        //+ sum
+        //- difference
+        //* product
+        // / divide
+        // % rem
+        
+        //How to calculate root, and power in java program.
+        
         System.out.println("Sum of the two numbers = " + sum);
 
         sc.close();
