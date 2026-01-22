@@ -22,6 +22,12 @@ public class MyCalculatorTest {
 		//Retrieve
 		System.out.println(mc1.num1+", "+mc1.num2+", "+mc1.num3);
 		
+		//Calculate and display the difference of num1, and num2
+		//Calculate and display the product of num1, and num2
+		//Divide num1 by num2 and display the result.
+		//Divide num1 by num2 and display remainder.
+		
+		
 	}
 
 }
