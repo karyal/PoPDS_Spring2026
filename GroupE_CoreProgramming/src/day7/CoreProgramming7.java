@@ -65,11 +65,9 @@ public class CoreProgramming7 {
 		// >= GT or EQ
 		// <= LT or EQ
 		
-		int num4=90;
-		int num5=99;
-		boolean result3 = (num4!=num5);
-		System.out.println(result3);
-		
+		int num8=90;
+		int num9=99;
+		boolean result3 = (num8!=num9);
+		System.out.println(result3);		
 	}
-
 }

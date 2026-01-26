@@ -82,5 +82,4 @@ public class PersonTest {
 		System.out.println(p2.fullName);
 */
 	}
-
 }
