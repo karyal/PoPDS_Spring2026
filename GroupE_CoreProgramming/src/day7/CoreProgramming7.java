@@ -12,6 +12,7 @@ public class CoreProgramming7 {
 		//5. Variables
 		//6. Class & Object
 		//7. Operators
+		
 		//a. Assignment Operator
 		//i. Simple Assignment =
 		//Assign value from right to left
