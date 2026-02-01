@@ -40,13 +40,15 @@ public class StudentResult {
 	}
 	
 	//to calculate result
-	
+	public void calculateResult() {
+		int sub1=this.student.getPop();
+		int sub2=this.student.getDcn();
+		String result="FAIL";
+		if((sub1>=Global.PM) && (sub2>=Global.PM))
+			result="PASS";
+		this.student.setResult(result);
+	}
 }
-
-
-
-
-
 
 
 
