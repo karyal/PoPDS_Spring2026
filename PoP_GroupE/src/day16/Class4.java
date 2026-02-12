@@ -1,5 +1,5 @@
 package day16;
-import p1.Class1;
+
 
 abstract class Class04 { 
 	//must extends to use
@@ -23,6 +23,6 @@ final class Class041{
  
 public class Class4 {
 public static void main(String[] args) {
-	new Class1().f1();//Call the method
+	//new Class1().f1();//Call the method
 }
 }
