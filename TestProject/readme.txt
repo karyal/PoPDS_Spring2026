@@ -1,1 +1,0 @@
---module-path "D:/Softwares/Java/javafx-sdk-25.0.2/lib" --add-modules javafx.controls,javafx.fxml --enable-native-access=javafx.graphics
