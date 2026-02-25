@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDatabase implements StudentCRUD {
+public class StudentCRUDImplement implements StudentCRUD {
 	private String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private String HOST = "localhost";// 127.0.0.1 //IP Address of Your PC
 	private int PORT = 3306; // default port
