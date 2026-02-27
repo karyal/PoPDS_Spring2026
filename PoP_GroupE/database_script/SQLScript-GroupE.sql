@@ -30,3 +30,57 @@ select * from tbl_users;
 
 -- delete record
 delete from tbl_users where uid=3;
+
+-- update record
+update tbl_users 
+	set user_name='user2', user_password='user2' 
+		where uid=3;
+        
+-- delete record
+delete from tbl_users where uid=3;
+
+
+-- Student
+-- tbl_students sid*, full_name, pop, cn, db, total, average, result
+use GroupE;
+create table tbl_student(
+	sid int not null,
+    full_name varchar(50) not null, 
+    pop decimal(5, 2) not null, 
+    cn decimal(5, 2) not null, 
+    db decimal(5, 2) not null, 
+    total decimal(5, 2), 
+    average decimal(5,2), 
+    result varchar(50)
+);
+
+alter table tbl_student
+	add constraint pk_sid
+		primary key (sid);
+
+desc tbl_student;
+select * from tbl_student;
+select * from tbl_student where sid=1;
+
+-- insert
+insert into tbl_student values(1, 'Dipesh Oli',67, 89, 97,0 ,0, 'NA');
+
+-- Update
+update tbl_student 
+	set full_name='new name', 
+		pop=1.1, 
+        cn=1.1, 
+        db=1.1, 
+        total=1.1, 
+        average=1.1, 
+        result='new result' 
+	where sid=1;
+
+
+
+
+
+
+
+
+
