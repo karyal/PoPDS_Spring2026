@@ -91,6 +91,26 @@ public class NewPerson extends Application{
 		
 		btnSave=new Button("SAVE");
 		btnSave.relocate(150, 390);
+		btnSave.setOnAction(event->{
+			//Get values and send to save
+			Person person=new Person();
+			person.setPid(Integer.parseInt(txtPid.getText()));//String to int
+			person.setFullName(txtName.getText());
+			person.setAddress(txtAddress.getText());
+			person.setEmail(txtEmail.getText());
+			person.setPhone(txtPhone.getText());
+			if(rbFemale.isSelected()==true) {
+				person.setGender("Female");
+			}
+			else {
+				person.setGender("Male");
+			}
+			person.setDob(dobPicker.getValue().toString());
+			person.setQualification(cmbQuf.getValue().toString());
+			//How to get value from combobox?
+			boolean result = new PersonDatabase().save(person);
+			System.out.println(result);
+		});
 		btnClose=new Button("CLOSE");
 		btnClose.relocate(250, 390);
 	

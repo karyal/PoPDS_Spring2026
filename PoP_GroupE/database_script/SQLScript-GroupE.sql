@@ -99,8 +99,9 @@ create table tbl_persons(
 	qualification varchar(50)
 );
 
+alter table tbl_persons
+	add constraint pk_pid
+		primary key(pid);
 
 
-
-
-
+describe tbl_persons;
