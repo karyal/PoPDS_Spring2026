@@ -85,8 +85,19 @@ END //
 DELIMITER ;
 
 call InsertStudent(6, 'Karisma', 78, 78, 78, 0.0, 0.0, 'NA');
-call SearchStudent(6);
+call SearchStudent(2);
 
+use GroupE;
+create table tbl_persons(
+	pid int not null,
+	full_name varchar(50) not null,
+	address varchar(50) not null,
+	email varchar(50) not null,
+	phone varchar(50) not null,
+	gender varchar(50) not null,
+	dateof_birth varchar(50) not null,
+	qualification varchar(50)
+);
 
 
 
