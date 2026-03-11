@@ -76,7 +76,16 @@ update tbl_student
         result='new result' 
 	where sid=1;
 
+-- Stored Procedure
+DELIMITER //
+CREATE PROCEDURE InsertStudent(IN sid int, IN full_name varchar(50), IN pop double(5,2), IN cn double(5,2), IN db double(5,2), IN total double(5,2), IN average double(5,2), IN result varchar(50))
+BEGIN
+    INSERT INTO tbl_student VALUES(sid, full_name, pop, cn, db, total, average, result);
+END //
+DELIMITER ;
 
+call InsertStudent(6, 'Karisma', 78, 78, 78, 0.0, 0.0, 'NA');
+call SearchStudent(6);
 
 
 
