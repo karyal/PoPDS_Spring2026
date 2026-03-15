@@ -32,6 +32,12 @@ public class PersonDatabase {
 			while(rs.next()) {
 				person=new Person();
 				person.setFullName(rs.getString("full_name"));
+				person.setAddress(rs.getString("address"));
+				person.setEmail(rs.getString("email"));
+				person.setPhone(rs.getString("phone"));
+				person.setGender(rs.getString("gender"));
+				person.setDob(rs.getString("dateof_birth"));
+				person.setQualification(rs.getString("qualification"));
 			}
 			conn.close();
 			System.out.println("Connection Close Successfully");
@@ -66,6 +72,71 @@ public class PersonDatabase {
 			pstat.close();
 			conn.close();
 			System.out.println("Insert Record Successfully");
+			result=true;
+		} catch (Exception e) {
+			System.err.print("Error : "+e.getMessage());
+			result=false;
+		}
+		return result;
+	}
+	/*
+	pid int not null,
+	full_name varchar(50) not null,
+	address varchar(50) not null,
+	email varchar(50) not null,
+	phone varchar(50) not null,
+	gender varchar(50) not null,
+	dateof_birth varchar(50) not null,
+	qualification varchar(50)
+	*/
+	public boolean update(Person person) {
+		//Declare
+		Connection conn;
+		PreparedStatement pstat;
+		String strSql="UPDATE tbl_persons SET full_name=?, address=?, email=?, phone=?, gender=?, dateof_birth=?, qualification=? WHERE pid=?";
+		boolean result;
+		try {
+			//Initialize
+			//Input, Process, Output
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USER, PASS);
+			pstat = conn.prepareStatement(strSql);
+			pstat.setInt(8, person.getPid());
+			pstat.setString(1, person.getFullName());
+			pstat.setString(2, person.getAddress());
+			pstat.setString(3, person.getEmail());
+			pstat.setString(4, person.getPhone());
+			pstat.setString(5, person.getGender());
+			pstat.setString(6, person.getDob());
+			pstat.setString(7, person.getQualification());
+			pstat.executeUpdate(); //Update Record
+			pstat.close();
+			conn.close();
+			System.out.println("Update Record Successfully");
+			result=true;
+		} catch (Exception e) {
+			System.err.print("Error : "+e.getMessage());
+			result=false;
+		}
+		return result;
+	}
+	public boolean delete(int pid) {
+		//Declare
+		Connection conn;
+		PreparedStatement pstat;
+		String strSql="DELETE FROM tbl_persons WHERE pid=?";
+		boolean result;
+		try {
+			//Initialize
+			//Input, Process, Output
+			Class.forName(DRIVER);
+			conn = DriverManager.getConnection(URL, USER, PASS);
+			pstat = conn.prepareStatement(strSql);
+			pstat.setInt(1, pid);
+			pstat.executeUpdate(); //Delete Record
+			pstat.close();
+			conn.close();
+			System.out.println("Delete Record Successfully");
 			result=true;
 		} catch (Exception e) {
 			System.err.print("Error : "+e.getMessage());

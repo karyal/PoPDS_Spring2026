@@ -14,7 +14,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class SearchPerson extends Application{
+public class DeletePerson extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -27,106 +27,112 @@ public class SearchPerson extends Application{
 		RadioButton rbMale, rbFemale;
 		DatePicker dobPicker;
 		ComboBox cmbQuf;
-		Button btnSearch, btnClose;
-		
-		lblTitle=new Label("PERSON ENTRY FORM");
+		Button btnSearch, btnClose, btnDelete;
+
+		lblTitle = new Label("PERSON DELET FORM");
 		lblTitle.relocate(100, 20);
-		//Change FontSize
-		
-		lblPid=new Label("PID");
+		// Change FontSize
+
+		lblPid = new Label("PID");
 		lblPid.relocate(50, 70);
-		
+
 		txtPid = new TextField();
 		txtPid.relocate(150, 70);
-		
+
 		lblName = new Label("NAME");
 		lblName.relocate(50, 110);
-		
-		txtName= new TextField();
+
+		txtName = new TextField();
 		txtName.relocate(150, 110);
-		
+
 		lblAddress = new Label("ADDRESS");
 		lblAddress.relocate(50, 150);
-		
-		txtAddress= new TextField();
+
+		txtAddress = new TextField();
 		txtAddress.relocate(150, 150);
-		
+
 		lblEmail = new Label("EMAIL");
 		lblEmail.relocate(50, 190);
-		
-		txtEmail= new TextField();
+
+		txtEmail = new TextField();
 		txtEmail.relocate(150, 190);
-		
+
 		lblPhone = new Label("PHONE");
 		lblPhone.relocate(50, 230);
-		
-		txtPhone= new TextField();
+
+		txtPhone = new TextField();
 		txtPhone.relocate(150, 230);
-		
+
 		lblGender = new Label("GENDER");
 		lblGender.relocate(50, 270);
-		
-		rbMale=new RadioButton("Male");
+
+		rbMale = new RadioButton("Male");
 		rbMale.relocate(150, 270);
-		
-		rbFemale=new RadioButton("Female");
+
+		rbFemale = new RadioButton("Female");
 		rbFemale.relocate(250, 270);
 		rbFemale.setSelected(true);
-		
-		ToggleGroup tg=new ToggleGroup();
+
+		ToggleGroup tg = new ToggleGroup();
 		rbMale.setToggleGroup(tg);
 		rbFemale.setToggleGroup(tg);
-		
+
 		lblDob = new Label("Date of Birth");
 		lblDob.relocate(50, 310);
-		
-		dobPicker=new DatePicker();
+
+		dobPicker = new DatePicker();
 		dobPicker.relocate(150, 310);
-		
 
 		lblQuf = new Label("Qualification");
 		lblQuf.relocate(50, 350);
-		
-		cmbQuf=new ComboBox();
+
+		cmbQuf = new ComboBox();
 		cmbQuf.relocate(150, 350);
 		cmbQuf.getItems().add("SEE");
-		
-		btnSearch=new Button("SEARCH");
+
+		btnSearch = new Button("SEARCH");
 		btnSearch.relocate(320, 70);
-		btnSearch.setOnAction(event->{
-			int pid= Integer.parseInt(txtPid.getText()); // value is 1
-			Person person=new PersonDatabase().search(pid); //send 1
-			txtName.setText(person.getFullName()); //Display name
+		btnSearch.setOnAction(event -> {
+			int pid = Integer.parseInt(txtPid.getText()); // value is 1
+			Person person = new PersonDatabase().search(pid); // send 1
+			txtName.setText(person.getFullName()); // Display name
 			txtAddress.setText(person.getAddress());
 			txtEmail.setText(person.getEmail());
 			txtPhone.setText(person.getPhone());
-			
-			//Gender
+
+			// Gender
 			String gen = person.getGender();
-			if(gen.equals("Male")) {
+			if (gen.equals("Male")) {
 				rbMale.setSelected(true);
 				rbFemale.setSelected(false);
 			}
-			if(gen.equals("Female")) {
+			if (gen.equals("Female")) {
 				rbMale.setSelected(false);
 				rbFemale.setSelected(true);
 			}
-			//dobPicker.setValue(person.getDob().toString());
-			//How to set value on DatePicker in JavaFX
-			String dob = person.getDob();//dob as String
-			//dob convert to LocalDate type
+			// dobPicker.setValue(person.getDob().toString());
+			// How to set value on DatePicker in JavaFX
+			String dob = person.getDob();// dob as String
+			// dob convert to LocalDate type
 			LocalDate localDate = LocalDate.parse(dob);
 			dobPicker.setValue(localDate);
 			cmbQuf.setValue(person.getQualification());
 		});
-		
-		btnClose=new Button("CLOSE");
+
+		btnClose = new Button("CLOSE");
 		btnClose.relocate(150, 390);
-		btnClose.setOnAction(event->{
-			primaryStage.close();//Close the stage
+		btnClose.setOnAction(event -> {
+			primaryStage.close();// Close the stage
 		});
-	
-		Pane pane =new Pane();
+
+		btnDelete = new Button("DELETE");
+		btnDelete.relocate(225, 390);
+		btnDelete.setOnAction(event -> {
+			int pid = Integer.parseInt(txtPid.getText());
+			boolean result = new PersonDatabase().delete(pid);
+			System.out.println(result);
+		});
+		Pane pane = new Pane();
 		Scene scene = new Scene(pane, 450, 450);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("New Person Entry Form");
@@ -139,7 +145,7 @@ public class SearchPerson extends Application{
 		pane.getChildren().addAll(lblGender, rbMale, rbFemale);
 		pane.getChildren().addAll(lblDob, dobPicker);
 		pane.getChildren().addAll(lblQuf, cmbQuf);
-		pane.getChildren().addAll(btnSearch, btnClose);
+		pane.getChildren().addAll(btnSearch, btnClose, btnDelete);
 		primaryStage.show();
 	}
 

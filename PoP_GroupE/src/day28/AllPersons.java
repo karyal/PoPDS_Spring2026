@@ -1,5 +1,6 @@
 package day28;
 
+//Day24 AllStudents
 import java.time.LocalDate;
 
 import javafx.application.Application;
@@ -14,7 +15,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class SearchPerson extends Application{
+public class AllPersons extends Application{
 
 	public static void main(String[] args) {
 		launch(args);
