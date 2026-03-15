@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 public class PersonDatabase {
 	private String DRIVER="com.mysql.cj.jdbc.Driver";
@@ -14,6 +15,39 @@ public class PersonDatabase {
 	private String DB="GroupE";
 	private String URL="jdbc:mysql://"+HOST+":"+PORT+"/"+DB;
 
+	public List<Person> all() {//receive value 1
+		Connection conn;
+		String strSql ="SELECT * FROM tbl_persons";
+		PreparedStatement pstat;
+		ResultSet rs;//Receive result from mysql
+		String name="";
+		List<Person> persons=null;
+		try {
+			Class.forName(DRIVER); //Load driver
+			conn = DriverManager.getConnection(URL, USER, PASS);
+			pstat=conn.prepareStatement(strSql);
+			rs=pstat.executeQuery(); //run sql statement on mysql 
+			
+			while(rs.next()) {
+				Person person=new Person();
+				person.setPid(rs.getInt("pid"));
+				person.setFullName(rs.getString("full_name"));
+				person.setAddress(rs.getString("address"));
+				person.setEmail(rs.getString("email"));
+				person.setPhone(rs.getString("phone"));
+				person.setGender(rs.getString("gender"));
+				person.setDob(rs.getString("dateof_birth"));
+				person.setQualification(rs.getString("qualification"));
+				persons.add(person);
+			}
+			conn.close();
+			System.out.println("Connection Close Successfully");
+		} catch (Exception e) {
+			System.out.println("Error : "+e.getMessage());
+			//Display error
+		}
+		return persons;
+	}
 	//Search person
 	public Person search(int pid) {//receive value 1
 		Connection conn;
@@ -31,6 +65,7 @@ public class PersonDatabase {
 			
 			while(rs.next()) {
 				person=new Person();
+				person.setPid(pid);
 				person.setFullName(rs.getString("full_name"));
 				person.setAddress(rs.getString("address"));
 				person.setEmail(rs.getString("email"));

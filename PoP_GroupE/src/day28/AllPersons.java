@@ -1,21 +1,18 @@
 package day28;
 
-//Day24 AllStudents
-import java.time.LocalDate;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class AllPersons extends Application{
+public class AllPersons extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
@@ -23,124 +20,88 @@ public class AllPersons extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Label lblTitle, lblPid, lblName, lblAddress, lblEmail, lblPhone, lblGender, lblDob, lblQuf;
-		TextField txtPid, txtName, txtAddress, txtEmail, txtPhone;
-		RadioButton rbMale, rbFemale;
-		DatePicker dobPicker;
-		ComboBox cmbQuf;
-		Button btnSearch, btnClose;
-		
-		lblTitle=new Label("PERSON ENTRY FORM");
-		lblTitle.relocate(100, 20);
-		//Change FontSize
-		
-		lblPid=new Label("PID");
-		lblPid.relocate(50, 70);
-		
-		txtPid = new TextField();
-		txtPid.relocate(150, 70);
-		
-		lblName = new Label("NAME");
-		lblName.relocate(50, 110);
-		
-		txtName= new TextField();
-		txtName.relocate(150, 110);
-		
-		lblAddress = new Label("ADDRESS");
-		lblAddress.relocate(50, 150);
-		
-		txtAddress= new TextField();
-		txtAddress.relocate(150, 150);
-		
-		lblEmail = new Label("EMAIL");
-		lblEmail.relocate(50, 190);
-		
-		txtEmail= new TextField();
-		txtEmail.relocate(150, 190);
-		
-		lblPhone = new Label("PHONE");
-		lblPhone.relocate(50, 230);
-		
-		txtPhone= new TextField();
-		txtPhone.relocate(150, 230);
-		
-		lblGender = new Label("GENDER");
-		lblGender.relocate(50, 270);
-		
-		rbMale=new RadioButton("Male");
-		rbMale.relocate(150, 270);
-		
-		rbFemale=new RadioButton("Female");
-		rbFemale.relocate(250, 270);
-		rbFemale.setSelected(true);
-		
-		ToggleGroup tg=new ToggleGroup();
-		rbMale.setToggleGroup(tg);
-		rbFemale.setToggleGroup(tg);
-		
-		lblDob = new Label("Date of Birth");
-		lblDob.relocate(50, 310);
-		
-		dobPicker=new DatePicker();
-		dobPicker.relocate(150, 310);
-		
+		TableView tableView;
+		Label lblTitle;
+		Button btnRefresh, btnClose;
 
-		lblQuf = new Label("Qualification");
-		lblQuf.relocate(50, 350);
+		lblTitle = new Label("ALL PERSONS");
+		lblTitle.relocate(100, 20);
+		// Change FontSize
+
+		tableView = new TableView();
+		tableView.setPrefHeight(200);
+		tableView.setPrefWidth(650);
+		tableView.relocate(20, 60);
+
+		// Table Columns
+		TableColumn<Person, Integer> column1 = new TableColumn<>("PID");
+		TableColumn<Person, String> column2 = new TableColumn<>("NAME");
+		TableColumn<Person, String> column3 = new TableColumn<>("ADDRESS");
+		TableColumn<Person, String> column4 = new TableColumn<>("EMAIL");
+		TableColumn<Person, String> column5 = new TableColumn<>("PHONE");
+		TableColumn<Person, String> column6 = new TableColumn<>("GENDER");
+		TableColumn<Person, String> column7 = new TableColumn<>("DOB");
+		TableColumn<Person, String> column8 = new TableColumn<>("QUALIFICATION");
+
+		//Mapping field with column
+		column1.setCellValueFactory(new PropertyValueFactory<>("pid"));
+		column1.setPrefWidth(50); // Set a fixed width of 50 pixels
+		column1.setResizable(false); // Prevent user resizing
+
+		column2.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+		column2.setPrefWidth(150); // Set a fixed width of 150 pixels
+		column2.setResizable(false); // Prevent user resizing
+
+		column3.setCellValueFactory(new PropertyValueFactory<>("address"));
+		column3.setPrefWidth(50); // Set a fixed width of 150 pixels
+		column3.setResizable(false); // Prevent user resizing
+
+		column4.setCellValueFactory(new PropertyValueFactory<>("email"));
+		column4.setPrefWidth(50); // Set a fixed width of 150 pixels
+		column4.setResizable(false); // Prevent user resizing
+
+		column5.setCellValueFactory(new PropertyValueFactory<>("phone"));
+		column5.setPrefWidth(50); // Set a fixed width of 150 pixels
+		column5.setResizable(false); // Prevent user resizing
+
+		column6.setCellValueFactory(new PropertyValueFactory<>("gender"));
+		column6.setPrefWidth(100); // Set a fixed width of 150 pixels
+		column6.setResizable(false); // Prevent user resizing
+
+		column7.setCellValueFactory(new PropertyValueFactory<>("dob"));
+		column7.setPrefWidth(100); // Set a fixed width of 150 pixels
+		column7.setResizable(false); // Prevent user resizing
+
+		column8.setCellValueFactory(new PropertyValueFactory<>("qualification"));
+		column8.setPrefWidth(100); // Set a fixed width of 150 pixels
+		column8.setResizable(false); // Prevent user resizing
 		
-		cmbQuf=new ComboBox();
-		cmbQuf.relocate(150, 350);
-		cmbQuf.getItems().add("SEE");
+		tableView.getColumns().addAll(column1, column2, column3, column4, column5, column6, column7, column8);
 		
-		btnSearch=new Button("SEARCH");
-		btnSearch.relocate(320, 70);
-		btnSearch.setOnAction(event->{
-			int pid= Integer.parseInt(txtPid.getText()); // value is 1
-			Person person=new PersonDatabase().search(pid); //send 1
-			txtName.setText(person.getFullName()); //Display name
-			txtAddress.setText(person.getAddress());
-			txtEmail.setText(person.getEmail());
-			txtPhone.setText(person.getPhone());
-			
-			//Gender
-			String gen = person.getGender();
-			if(gen.equals("Male")) {
-				rbMale.setSelected(true);
-				rbFemale.setSelected(false);
-			}
-			if(gen.equals("Female")) {
-				rbMale.setSelected(false);
-				rbFemale.setSelected(true);
-			}
-			//dobPicker.setValue(person.getDob().toString());
-			//How to set value on DatePicker in JavaFX
-			String dob = person.getDob();//dob as String
-			//dob convert to LocalDate type
-			LocalDate localDate = LocalDate.parse(dob);
-			dobPicker.setValue(localDate);
-			cmbQuf.setValue(person.getQualification());
+		//Person person = new PersonDatabase().search(2);
+		List<Person> persons = new PersonDatabase().all();
+		
+		for(Person person: persons) {
+			tableView.getItems().add(person);
+		}
+		
+		// Person person=new PersonDatabase().all();
+		btnClose = new Button("CLOSE");
+		btnClose.relocate(150, 290);
+		btnClose.setOnAction(event -> {
+			primaryStage.close();// Close the stage
 		});
-		
-		btnClose=new Button("CLOSE");
-		btnClose.relocate(150, 390);
-		btnClose.setOnAction(event->{
-			primaryStage.close();//Close the stage
-		});
-	
-		Pane pane =new Pane();
-		Scene scene = new Scene(pane, 450, 450);
+
+		btnRefresh = new Button("REFRESH");
+		btnRefresh.relocate(20, 290);
+
+		Pane pane = new Pane();
+		Scene scene = new Scene(pane, 700, 350);
 		primaryStage.setScene(scene);
-		primaryStage.setTitle("New Person Entry Form");
+		primaryStage.setTitle("All Persons");
 		pane.getChildren().add(lblTitle);
-		pane.getChildren().addAll(lblPid, txtPid);
-		pane.getChildren().addAll(lblName, txtName);
-		pane.getChildren().addAll(lblAddress, txtAddress);
-		pane.getChildren().addAll(lblEmail, txtEmail);
-		pane.getChildren().addAll(lblPhone, txtPhone);
-		pane.getChildren().addAll(lblGender, rbMale, rbFemale);
-		pane.getChildren().addAll(lblDob, dobPicker);
-		pane.getChildren().addAll(lblQuf, cmbQuf);
-		pane.getChildren().addAll(btnSearch, btnClose);
+		pane.getChildren().add(tableView);
+		pane.getChildren().addAll(btnRefresh, btnClose);
 		primaryStage.show();
 	}
 
