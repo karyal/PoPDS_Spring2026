@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDatabase {
@@ -20,14 +21,13 @@ public class PersonDatabase {
 		String strSql ="SELECT * FROM tbl_persons";
 		PreparedStatement pstat;
 		ResultSet rs;//Receive result from mysql
-		String name="";
 		List<Person> persons=null;
 		try {
 			Class.forName(DRIVER); //Load driver
 			conn = DriverManager.getConnection(URL, USER, PASS);
 			pstat=conn.prepareStatement(strSql);
 			rs=pstat.executeQuery(); //run sql statement on mysql 
-			
+			persons = new ArrayList<Person>();
 			while(rs.next()) {
 				Person person=new Person();
 				person.setPid(rs.getInt("pid"));
